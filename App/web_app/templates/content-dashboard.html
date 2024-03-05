@@ -1,0 +1,742 @@
+<div>
+  <!-- Stock / Crypto Overview Page -->
+  <!-- Summary and recommendation container -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-4">
+    <!-- Summary container -->
+    <div class="min-h-[10rem] col-span-2 p-4 md:p-6 lg:p-8">
+      <div class="mb-4 flex items-center justify-left">
+        <div class="lg:mb-2 px-2">
+          <div class="flex justify-between">
+            <h3 class="me-[1rem] lg:mb-2 text-2xl lg:text-4xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+              {{ stock.name }}
+              <span class=" ms-[-0.125rem] lg:ms-[-0.5rem] text-3.5xl lg:text-5xl text-gray-400">
+                {{ stock.ticker }}
+              </span>
+            </h3>
+            <button type="button"
+                    class="flex items-center justify-center my-1.5 px-4 py-2 text-xs font-medium text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 dark:bg-purple-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+              <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                   aria-hidden="true">
+                <path clip-rule="evenodd" fill-rule="evenodd"
+                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+              </svg>
+              Watchlist
+            </button>
+          </div>
+          <div class="mb-4">
+            <h3 class="mb-[-0.25rem] text-4xl lg:text-6xl font-black lg:font-extrabold lg:tracking-wide text-gray-900">
+              <span id="stock-price">
+                0.00
+              </span>
+              <span class="ms-[-0.125rem] lg:ms-[-0.5rem] text-lg lg:text-2xl text-gray-400">
+                USD
+              </span>
+            </h3>
+            <span id="stock-price-dt"
+                  class="text-xs lg:text-base inline-block font-normal lg:tracking-wide text-gray-400">
+              January 01, 1970, 00:00:00 UTC
+            </span>
+          </div>
+          <span class="text-md lg:text-xl inline-block font-normal lg:tracking-wide text-gray-500">
+            {{ stock.description }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Recommendation container -->
+    <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+      <!-- Title -->
+      <div class="mb-4 flex items-center justify-left">
+        <div class="lg:mb-2">
+          <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+            Our recommendation</h3>
+        </div>
+      </div>
+      <!-- Recommendation -->
+      <div class="flex flex-col text-center">
+        <dd>
+          <div id="rec-pct-change"
+               class="inline-flex items-center px-2.5 py-0.5 text-5xl font-extrabold text-emerald-400 dark:text-emerald-400 text-center">
+            12%
+            {#              <svg class="w-14 h-14 ms-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">#}
+            {#                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"#}
+            {#                      d="M17.25 15.25V6.75H8.75"></path>#}
+            {#                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"#}
+            {#                      d="M17 7L6.75 17.25"></path>#}
+            {#              </svg>#}
+          </div>
+        </dd>
+        <dt id="rec-pct-expected-action" class="mb-6 text-lg leading-6 font-medium text-gray-500">
+          Expected increase tomorrow
+        </dt>
+        <a id="rec-pct-action-button"
+           href="https://www.google.com/search?q=buy+sell+stock"
+           class="inline-flex justify-center items-center font-extrabold tracking-wider text-[4rem] mx-5 px-10 py-2.5 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-center dark:focus:ring-blue-800">
+          BUY
+          <svg class="ml-2 -mr-1 w-12 h-12" fill="currentColor" viewBox="0 0 20 20"
+               xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- 2 Graphs container -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
+    <!-- 1st Graph container -->
+    <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+      <div class="flex justify-between mb-5">
+        <!-- Title -->
+        <div class="mb-4 flex items-center justify-left">
+          <div class="lg:mb-2">
+            <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+              Share price
+              <span class="text-2xl lg:text-4xl text-gray-400">
+                USD
+              </span>
+            </h3>
+            <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">Market summary</span>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex gap-2">
+            <!-- Historical Time period selection -->
+            <span class="py-2 text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">From:</span>
+            <div>
+              <button id="priceChartDropdownButton"
+                      data-dropdown-toggle="priceChartDropdown"
+                      data-dropdown-placement="bottom" type="button"
+                      class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Last week
+                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4"/>
+                </svg>
+              </button>
+              <div id="priceChartDropdown"
+                   class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="priceChartDropdownButton">
+                  <!-- Dynamically generate dropdown options from timeRangeMapping -->
+                </ul>
+              </div>
+            </div>
+            <!-- Forecast Time period selection -->
+            <span class="py-2 text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">For:</span>
+            <div>
+              <button id="priceForecastChartDropdownButton"
+                      data-dropdown-toggle="priceForecastChartDropdown"
+                      data-dropdown-placement="bottom" type="button"
+                      class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Next 7 days
+                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4"/>
+                </svg>
+              </button>
+              <div id="priceForecastChartDropdown"
+                   class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="priceForecastChartDropdownButton">
+                  <!-- Dynamically generate dropdown options from timeRangeMapping -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Price chart -->
+      {% include 'price-chart.html' %}
+      <!-- Model settings button -->
+      <div class="mb-1 grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5">
+        <div class="flex justify-between items-center pt-5">
+          <div id="available-models-button"
+               class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-slate-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+            Available models
+            <svg class="ms-2 w-5 h-5" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 8">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"/>
+            </svg>
+          </div>
+          <div id="model-settings-button"
+               class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-slate-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+            Customize model
+            <svg class="ms-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                 stroke-width="1.5"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <!-- Settings -->
+      <div id="model-settings" class="hidden min-h-[10vh]">
+        <div class="mb-4">
+          <div class="flex items-center mb-4">
+            <h3 class="font-semibold text-gray-900 dark:text-white">NLP</h3>
+            <input id="nlp-enable-checkbox" type="checkbox" value=""
+                   class="ms-2 w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-300 dark:focus:ring-blue-800 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          </div>
+          <div class="grid grid-cols-1 gap-4 m-4">
+            <div id="sentiment-shift-control" class="relative mb-8">
+              <label for="steps-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sentiment
+                shift:</label>
+              <input id="sentiment-shift-slider" type="range" value="-1" min="-7" max="0" step="1"
+                     class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                     disabled>
+              <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">- 7 days</span>
+              <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-2/4 -translate-x-1/2 rtl:translate-x-1/2 -bottom-6">- 4 days</span>
+              <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">- 0 days</span>
+            </div>
+          </div>
+        </div>
+        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Model</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 m-4">
+          <div class="relative mb-8 w-full">
+            <label for="steps-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of
+              neurons:</label>
+            <input id="neuron-number-slider" type="range" value="512" min="64" max="2048" step="64"
+                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+            <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">64</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">2048</span>
+          </div>
+          <div class="relative mb-8 w-full">
+            <label for="steps-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of
+              layers:</label>
+            <input id="layer-number-slider" type="range" value="4" min="4" max="64" step="4"
+                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+            <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">4</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">64</span>
+          </div>
+          <div class="flex">
+            <div class="flex items-center h-5">
+              <input id="nbeats-enable-checkbox" aria-describedby="helper-checkbox-text" type="checkbox"
+                     value=""
+                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            </div>
+            <div class="ms-2 text-sm min-h-[5rem]">
+              <label for="nbeats-enable-checkbox" class="font-medium text-gray-900 dark:text-gray-300">Use N-BEATS
+                model</label>
+              <p id="nbeats-checkbox-warning-text"
+                 class="hidden text-xs font-normal text-gray-500 dark:text-gray-300">
+                Warning! Works
+                best for single variate data. May result in suboptimal results when NLP is toggled on.</p>
+            </div>
+          </div>
+          <div>
+
+          </div>
+        </div>
+        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Training</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 m-4">
+          <div class="relative mb-8 w-full">
+            <label for="steps-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of
+              epochs:</label>
+            <input id="epoch-number-slider" type="range" value="10" min="5" max="100" step="5"
+                   class="w-full h-2 bg-gray-200 text-purple-300 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+            <span class="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">5</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400 absolute end-0 -bottom-6">100</span>
+          </div>
+          <div class="relative mb-8 w-full">
+          </div>
+        </div>
+        <button id="apply-settings-button" type="button"
+                class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+          Apply
+        </button>
+      </div>
+      <!-- Available models -->
+      <div id="available-models" class="hidden min-h-[10vh]">
+        <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Found</h3>
+        <div class="mx-2 mb-6 w-1/2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          <button aria-current="true" type="button"
+                  class="w-full px-4 py-2 font-medium text-left rtl:text-right text-white hover:bg-purple-800 bg-purple-700 border-b border-gray-200 rounded-t-lg cursor-pointer focus:outline-none dark:bg-gray-800 dark:border-gray-600">
+            Auto
+          </button>
+          <button type="button"
+                  class="w-full px-4 py-2 font-medium text-left rtl:text-right border-b border-gray-200 cursor-pointer hover:bg-gray-100 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+            model_{{ stock.ticker }}_variables.data-00000-of-00001
+          </button>
+        </div>
+        <button id="apply-settings-button" type="button"
+                class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+          Apply
+        </button>
+      </div>
+    </div>
+    <!-- 2nd Graph container -->
+    <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+      <div class="flex justify-between mb-5">
+        <!-- Title -->
+        <div class="mb-4 flex items-center justify-left">
+          <div class="lg:mb-2">
+            <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+              Public sentiment</h3>
+            <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">Instant insight</span>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <span class="py-2 text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">From:</span>
+          <!-- Time period selection -->
+          <div>
+            <button id="sentimentChartDropdownButton"
+                    data-dropdown-toggle="sentimentChartDropdown"
+                    data-dropdown-placement="bottom" type="button"
+                    class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              Last week
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                   viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <div id="sentimentChartDropdown"
+                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                  aria-labelledby="sentimentChartDropdownButton">
+                <!-- Dynamically generate dropdown options from timeRangeMapping -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sentiment chart -->
+      {% include 'sentiment-chart.html' %}
+    </div>
+  </div>
+  <!-- Articles container -->
+  <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+    <!-- Title -->
+    <div class="mb-4 flex items-center justify-left">
+      <div class="lg:mb-2">
+        <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">Articles</h3>
+        <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">List of latest articles</span>
+      </div>
+    </div>
+    <!-- Table -->
+    {% include 'article-table.html' %}
+  </div>
+</div>
+
+<script>
+  let historicalData = [];
+  let forecastData = [];
+
+  class DashboardSocketHandler {
+    constructor(socket, ticker) {
+      this.socket = socket;
+      this.ticker = ticker;
+      this.initEventHandlers();
+    }
+
+    initEventHandlers() {
+      this.socket.on("connect", () => this.handleConnect());
+      this.socket.on("disconnect", () => this.handleDisconnect());
+      this.socket.on("update_price_history", data => this.handleUpdatePriceHistory(data));
+      this.socket.on("update_price_forecast", data => this.handleUpdatePriceForecast(data));
+      this.socket.on("update_sentiment", data => this.handleUpdateSentiment(data));
+      this.socket.on("update_article_list", data => this.handleUpdateArticleList(data));
+      this.socket.on("update_current_price", data => this.handleUpdateCurrentPrice(data));
+    }
+
+    handleConnect() {
+      this.socket.emit("join_ticker", {'ticker': this.ticker});
+      console.log('join_ticker:', this.ticker, 'emitted');
+    }
+
+    handleDisconnect() {
+      console.log('[DASHBOARD] Client disconnected: ' + this.socket.id);
+    }
+
+    handleUpdatePriceHistory(data) {
+      console.log('Price history chart updated:', data);
+
+      const dataArray = JSON.parse(data);
+      historicalData = dataArray;
+      this.updatePriceChart();
+    }
+
+    handleUpdatePriceForecast(data) {
+      console.log('Price forecast chart updated:', data);
+
+      const dataArray = JSON.parse(data);
+      forecastData = dataArray
+      this.updatePriceChart();
+      this.updateRecommendation();
+    }
+
+    handleUpdateSentiment(data) {
+      // Expected columns: 'date', 'sentiment_score'
+      console.log('Sentiment chart updated:', data);
+
+      const dataArray = JSON.parse(data);
+      const seriesData = dataArray.map(item => ({
+        x: this.formatDateToShortMonth(item.date),
+        y: parseFloat(item.sentiment_score.toFixed(2))
+      }));
+
+      ApexCharts.exec('sentiment', 'updateSeries', [{
+        data: seriesData
+      }], true);
+    }
+
+    handleUpdateArticleList(data) {
+      console.log('Article list updated:', data);
+
+      const tableBody = document.getElementById('article-table-body');
+      tableBody.innerHTML = ''; // Clear existing rows
+
+      const dataArray = JSON.parse(data);
+      dataArray.forEach(row => {
+        // JSON columns: date, headline, summary, source
+        const newRow = document.createElement('tr');
+        newRow.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
+
+        const dateCell = document.createElement('td');
+        dateCell.className = 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white';
+        dateCell.textContent = row.date;
+        newRow.appendChild(dateCell);
+
+        const headlineCell = document.createElement('td');
+        headlineCell.className = 'px-6 py-4';
+        headlineCell.textContent = row.headline;
+        newRow.appendChild(headlineCell);
+
+        const descriptionCell = document.createElement('td');
+        descriptionCell.className = 'px-6 py-4';
+        descriptionCell.textContent = row.summary;
+        newRow.appendChild(descriptionCell);
+
+        const sourceCell = document.createElement('td');
+        sourceCell.className = 'px-6 py-4';
+        sourceCell.textContent = row.source;
+        newRow.appendChild(sourceCell);
+
+        const sentimentCell = document.createElement('td');
+        sentimentCell.className = 'px-6 py-4';
+
+        const sentimentSpan = document.createElement('span');
+        sentimentSpan.className = 'px-2.5 py-0.5 w-[65px] text-center inline-block font-medium rounded-md'
+        if (row.sentiment_score < -0.5) {
+          sentimentSpan.classList.add('bg-rose-100', 'text-rose-700');
+        } else if (row.sentiment_score <= 0.5) {
+          sentimentSpan.classList.add('bg-amber-100', 'text-amber-700');
+        } else {
+          sentimentSpan.classList.add('bg-emerald-100', 'text-emerald-700');
+        }
+
+        sentimentSpan.textContent = row.sentiment_score.toFixed(2);
+        sentimentCell.appendChild(sentimentSpan);
+
+        newRow.appendChild(sentimentCell);
+
+        tableBody.appendChild(newRow);
+      });
+    }
+
+    handleUpdateCurrentPrice(data) {
+      console.log('Current price updated:', data);
+
+      let lastUpdateTime = data[0].last_update_time;
+      let livePrice = data[0].live_price;
+
+      document.getElementById('stock-price').textContent = livePrice.toFixed(2);
+      document.getElementById('stock-price-dt').textContent = lastUpdateTime;
+    }
+
+    formatDateToShortMonth(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleString('en-US', {month: 'short', day: 'numeric'});
+    }
+
+    updatePriceChart() {
+      const combinedData = [...historicalData, ...forecastData];
+      console.log('combinedData:', combinedData)
+
+      const newData = combinedData.map(item => item.close_price.toFixed(2));
+      const newCategories = combinedData.map(item => new Date(item.date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+      }));
+
+      ApexCharts.exec('price-chart', 'updateSeries', [{
+        data: newData
+      }]);
+
+      const forecastDataPointsCount = forecastData.length;
+
+      ApexCharts.exec('price-chart', 'updateOptions', {
+        xaxis: {
+          categories: newCategories
+        },
+        forecastDataPoints: {
+          count: forecastDataPointsCount
+        }
+      }, true, false);
+
+      console.log(newData);
+      console.log(newCategories);
+    }
+
+    updateRecommendation() {
+      if (historicalData.length > 0 && forecastData.length > 0) {
+        const lastHistoricalPrice = historicalData[historicalData.length - 1].close_price;
+        const lastForecastPrice = forecastData[forecastData.length - 1].close_price;
+
+        const percentageChange = ((lastForecastPrice - lastHistoricalPrice) / lastHistoricalPrice) * 100;
+
+        const percentageChangeElement = document.getElementById("rec-pct-change");
+        const expectedActionElement = document.getElementById("rec-pct-expected-action");
+        const actionButtonElement = document.getElementById("rec-pct-action-button");
+
+        const forecastButtonText = document.getElementById("priceForecastChartDropdownButton").textContent.trim().toLowerCase();
+
+        percentageChangeElement.classList.remove("text-emerald-400", "dark:text-emerald-400", "text-red-400", "dark:text-red-400");
+
+        if (percentageChange > 0) {
+          percentageChangeElement.classList.add("text-emerald-400", "dark:text-emerald-400");
+          expectedActionElement.textContent = `Expected increase ${forecastButtonText}`;
+          actionButtonElement.textContent = "BUY";
+        } else {
+          percentageChangeElement.classList.add("text-red-400", "dark:text-red-400");
+          expectedActionElement.textContent = `Expected decrease ${forecastButtonText}`;
+          actionButtonElement.textContent = "SELL";
+        }
+
+        // Update the text content
+        percentageChangeElement.textContent = `${percentageChange.toFixed(2)}%`;
+
+        console.log('Percentage Change:', percentageChange);
+      }
+    }
+  }
+
+  const MessageType = {
+    PRICE_HISTORY: 'price_history_chart',
+    PRICE_FORECAST: 'price_forecast_chart',
+    SENTIMENT: 'sentiment_chart',
+    ARTICLE_LIST: 'article_list',
+    CURRENT_PRICE: 'current_price'
+  };
+
+  class TimeRangeMapping {
+    constructor() {
+      this.pastTimeRanges = {
+        'Last 7 days': 7,
+        'Last 14 days': 14,
+        'Last 30 days': 30,
+        'Last 90 days': 90,
+      };
+      this.futureTimeRanges = {
+        'Tomorrow': 1,
+        'Next 2 days': 2,
+        'Next 7 days': 7,
+        'Next 14 days': 14,
+        'Next 30 days': 30,
+      };
+    }
+
+    getDateRange(label, isFuture = false) {
+      const today = new Date();
+      const timeRangeMapping = isFuture ? this.futureTimeRanges : this.pastTimeRanges;
+      const numericalTimeRange = timeRangeMapping[label];
+
+      if (numericalTimeRange !== undefined) {
+        const startDate = new Date(today);
+        const endDate = new Date(today);
+
+        if (isFuture) {
+          endDate.setDate(today.getDate() + numericalTimeRange);
+        } else {
+          startDate.setDate(today.getDate() - numericalTimeRange);
+        }
+
+        return {start: startDate, end: endDate};
+      }
+      return null;
+    }
+  }
+
+  class ChartDropdownInitializer {
+    constructor(timeRangeMapping, onRequestDataUpdate, isFuture = false) {
+      this.timeRangeMapping = timeRangeMapping;
+      this.isFuture = isFuture;
+      this.onRequestDataUpdate = onRequestDataUpdate;
+    }
+
+    initialize(chartId, messageType) {
+      const dropdownList = document.getElementById(`${chartId}Dropdown`).querySelector('ul');
+      const dropdownButton = document.getElementById(`${chartId}DropdownButton`);
+
+      Object.keys(this.timeRangeMapping).forEach(textOption => {
+        const listItem = this.createListItem(textOption, dropdownButton, messageType);
+        dropdownList.appendChild(listItem);
+      });
+
+      // Set default selection
+      const defaultOption = Object.keys(this.timeRangeMapping)?.[0] ?? null;
+      if (defaultOption) {
+        dropdownButton.textContent = defaultOption;
+        const dateRange = timeRangeMapping.getDateRange(defaultOption, this.isFuture);
+        this.onRequestDataUpdate(dateRange, messageType);
+      }
+    }
+
+    createListItem(textOption, dropdownButton, messageType) {
+      const listItem = document.createElement('li');
+      listItem.href = '#';
+      listItem.className = 'block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white';
+      listItem.textContent = textOption;
+
+      listItem.addEventListener('click', () => {
+        dropdownButton.textContent = textOption.trim();
+        const dateRange = timeRangeMapping.getDateRange(textOption, this.isFuture);
+        this.onRequestDataUpdate(dateRange, messageType);
+      });
+
+      return listItem;
+    }
+  }
+
+  function requestDataUpdate(dateRange, messageType) {
+    if (dateRange) {
+      const modelSettings = getModelSettings();
+
+      const eventData = {
+        'message_type': messageType,
+        'ticker': '{{ stock.ticker }}',
+        'datetime_from': dateRange.start.toISOString(),
+        'datetime_to': dateRange.end.toISOString(),
+        'model_settings': modelSettings,
+      };
+      socketDashboard.emit('update_request', eventData);
+      console.log('update_request:', eventData, 'emitted');
+    }
+  }
+
+  const socketDashboard = io('http://' + document.domain + ':' + location.port + '/dashboard');
+  const dashboardHandler = new DashboardSocketHandler(socketDashboard, '{{ stock.ticker }}');
+
+  const chartConfigurations = [
+    {chartId: 'sentimentChart', messageType: MessageType.SENTIMENT},
+    {chartId: 'priceChart', messageType: MessageType.PRICE_HISTORY},
+    {chartId: 'priceForecastChart', messageType: MessageType.PRICE_FORECAST, isFuture: true}
+  ];
+
+  const timeRangeMapping = new TimeRangeMapping();
+
+  chartConfigurations.forEach(({chartId, messageType, isFuture = false}) => {
+    const chartDropdownInitializer = new ChartDropdownInitializer(
+        isFuture ? timeRangeMapping.futureTimeRanges : timeRangeMapping.pastTimeRanges,
+        requestDataUpdate,
+        isFuture
+    );
+
+    chartDropdownInitializer.initialize(chartId, messageType);
+  });
+
+  requestDataUpdate({start: new Date(), end: new Date()}, MessageType.CURRENT_PRICE);
+  requestDataUpdate({start: new Date(Date.now() - 86400000), end: new Date()}, MessageType.ARTICLE_LIST);
+
+  const availableModelsButton = document.getElementById("available-models-button");
+  const availableModels = document.getElementById("available-models");
+
+  availableModelsButton.addEventListener("click", function () {
+    if (availableModels.classList.contains("hidden")) {
+      availableModels.classList.remove("hidden");
+    } else {
+      availableModels.classList.add("hidden");
+    }
+  });
+
+  const modelSettingsButton = document.getElementById("model-settings-button");
+  const modelSettings = document.getElementById("model-settings");
+
+  modelSettingsButton.addEventListener("click", function () {
+    if (modelSettings.classList.contains("hidden")) {
+      modelSettings.classList.remove("hidden");
+    } else {
+      modelSettings.classList.add("hidden");
+    }
+  });
+
+  const nlpEnableCheckbox = document.getElementById("nlp-enable-checkbox");
+  const sentimentShiftSlider = document.getElementById("sentiment-shift-slider");
+  const sentimentShiftControl = document.getElementById("sentiment-shift-control");
+
+  sentimentShiftSlider.disabled = !nlpEnableCheckbox.checked;
+  toggleChildrenDisabilityColors();
+
+  nlpEnableCheckbox.addEventListener("change", function () {
+    sentimentShiftSlider.disabled = !nlpEnableCheckbox.checked;
+    toggleChildrenDisabilityColors();
+    updateNBeatsWarningVisibility();
+  });
+
+  function toggleChildrenDisabilityColors() {
+    const labels = sentimentShiftControl.querySelectorAll("label");
+    const spans = sentimentShiftControl.querySelectorAll("span");
+    const elementColor = sentimentShiftSlider.disabled ? "#ccc" : "inherit";
+
+    labels.forEach((label) => {
+      label.style.color = elementColor;
+    });
+
+    spans.forEach((span) => {
+      span.style.color = elementColor;
+    });
+  }
+
+  const applySettingsButton = document.getElementById("apply-settings-button");
+
+  function getModelSettings() {
+    const nlpEnableCheckbox = document.getElementById("nlp-enable-checkbox").checked;
+    const sentimentShiftSlider = document.getElementById("sentiment-shift-slider").value;
+    const numberOfNeurons = document.getElementById("neuron-number-slider").value;
+    const numberOfLayers = document.getElementById("layer-number-slider").value;
+    const nbeatsEnableCheckbox = document.getElementById("nbeats-enable-checkbox").checked;
+    const numberOfEpochs = document.getElementById("epoch-number-slider").value;
+
+    const selectedValues = {
+      "nlp_enable_flag": nlpEnableCheckbox,
+      "sentiment_shift_days": sentimentShiftSlider,
+      "number_of_neurons": numberOfNeurons,
+      "number_of_layers": numberOfLayers,
+      "nbeats_enable_flag": nbeatsEnableCheckbox,
+      "number_of_epochs": numberOfEpochs
+    };
+
+    return selectedValues;
+  }
+
+  applySettingsButton.addEventListener("click", function () {
+    const priceForecastChartDropdownButton = document.getElementById("priceForecastChartDropdownButton");
+    const buttonText = priceForecastChartDropdownButton.textContent.trim();
+
+    const dateRange = timeRangeMapping.getDateRange(buttonText, true);
+    requestDataUpdate(dateRange, MessageType.PRICE_FORECAST);
+  });
+
+  const nbeatsEnableCheckbox = document.getElementById("nbeats-enable-checkbox");
+  nbeatsEnableCheckbox.addEventListener('change', updateNBeatsWarningVisibility);
+
+  function updateNBeatsWarningVisibility() {
+    const nlpCheckbox = document.getElementById("nlp-enable-checkbox").checked;
+    const nbeatsCheckbox = document.getElementById("nbeats-enable-checkbox").checked;
+    const warningText = document.getElementById('nbeats-checkbox-warning-text');
+
+    if (nbeatsCheckbox && nlpCheckbox) {
+      if (warningText.classList.contains("hidden")) {
+        warningText.classList.remove("hidden");
+      }
+    } else {
+      warningText.classList.add("hidden");
+    }
+  }
+
+</script>

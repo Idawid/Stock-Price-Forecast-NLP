@@ -1,0 +1,124 @@
+<section id="hero" class="w-full h-full">
+  <div>
+    <div id="heroTransformTarget" class="mx-auto">
+      <div class="relative text-center">
+        <div class="select-none block flex flex-col mt-[25vh] lg:mt-[20vh] mb-[30vh]">
+          <h1
+            class="font-markpro text-center flex-auto text-10xl lg:text-[9vw] text-purple-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">
+            Everything a trader needs.</h1>
+          <p class="mx-auto mt-3 max-w-[50vw] leading-[3vw] text-[2vw] font-bold text-slate-400 justify-center">Discover
+            powerful tools, real-time insights, and expert guidance to enhance your trading strategy and stay ahead in
+            the market.</p>
+        </div>
+        <div class="block flex flex-col mb-[50vh]">
+          <blockquote class="blockquote">
+            <h1
+              class="flex-auto text-5xl text-purple-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">
+              Rethinking Technical Analysis.</h1>
+            <p class="mx-auto mt-3 max-w-3xl text-lg font-bold text-slate-400 justify-center">
+              In my comprehensive exploration, spanning thousands of words, I've scrutinized the widespread use of
+              technical analysis in stock market investments. Despite its popularity, I've found that technical analysis
+              often falls short of providing the clarity and accuracy investors seek. It's
+              only through this firsthand experience that you might begin to
+              <span class="text-slate-500">see the broader picture</span>, questioning
+              whether technical analysis is indeed the best tool in the unpredictable world of stock market investing.
+            </p>
+          </blockquote>
+        </div>
+
+        <section class="">
+          <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+            <div class="mx-auto text-center">
+              <h2
+                class="font-markpro mb-4 text-6xl tracking-tight font-extrabold leading-tight text-slate-800 dark:text-white">
+                Start
+                your free trial today.</h2>
+              <p class="mb-6 font-light text-slate-400 dark:text-slate-200 text-lg md:text-xl">Try Demo for 30 days.
+                No credit card required.</p>
+              <img class="mx-auto w-[14rem]"
+                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/qr-code.svg">
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const heroTransformTarget = document.getElementById('heroTransformTarget');
+  const header = document.getElementById('main-header');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    header.classList.remove('shadow-md');
+  });
+
+  window.addEventListener('scroll', () => {
+    const scrollPercentage = (window.scrollY / document.body.clientHeight) * 100;
+
+    const scale = 1.2 - 0.5 * (scrollPercentage / 100);
+    const interpolatedTransform = `scale3d(${1.2 - 0.5 * (scrollPercentage / 100)}, ${1.2 - 0.5 * (scrollPercentage / 100)}, 1)`;
+
+    heroTransformTarget.style.transform = interpolatedTransform;
+    heroTransformTarget.style.width = `${Math.min(100 / scale, 100)}%`; // width so it's still 100% width after the scaling
+
+    // Apply the opacity to the shadow
+    const boxShadowOpacity = Math.min(0.2 * scrollPercentage / 100, 0.12); // Adjust the opacity values as needed
+    const boxShadow = `0 6px 20px rgba(0, 0, 0, ${boxShadowOpacity / 1}),
+                       0 2px 6px  rgba(0, 0, 0, ${boxShadowOpacity / 2}),
+                       0 0px 1px  rgba(0, 0, 0, ${boxShadowOpacity / 2})`;
+    header.style.boxShadow = boxShadow;
+
+  });
+
+</script>
+
+<style>
+    .hero-headline-text {
+        font-size: 9vw;
+        margin-block-start: 0.67em;
+    }
+
+    .font-markpro {
+        font-family: Markpro, sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 10px;
+    }
+
+    #heroTransformTarget {
+        height: 100%;
+        -webkit-backface-visibility: visible;
+        backface-visibility: visible;
+        transform-origin: 50% 40%;
+        font-size: 10vw;
+        transform: scale3d(1.2, 1.2, 1);
+        width: calc(1 / 1.2 * 100%);
+    }
+
+    .blockquote {
+        position: relative;
+    }
+
+    .blockquote:after {
+        position: absolute;
+        font-family: Catamaran, sans-serif;
+        content: '"';
+        left: 55vw;
+        top: -10vh;
+        font-size: 50rem;
+        color: rgba(0, 0, 0, 0.1);
+    }
+
+    .blockquote:before {
+        position: absolute;
+        font-family: Catamaran, sans-serif;
+        content: '"';
+        top: -30vh;
+        right: 57vw;
+        font-size: 50rem;
+        color: rgba(0, 0, 0, 0.1);
+    }
+
+</style>
