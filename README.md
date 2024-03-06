@@ -1,11 +1,3 @@
-# Bachelor of Engineering Thesis Project 
-
-Authors:
-- Maciej Sajecki
-- Maciej Radziwiłł
-- Dawid Mączka
-
-The application supports and was tested on Windows operating system, for the best performance please use Windows
 ## Installation
 
 ### Summary requirements:
@@ -79,4 +71,14 @@ After clicking 'Apply,' the predictions will be displayed on the graph once the 
 Above the graph on the right, next to the label 'From,' you can select the number of days in the past for which historical sentiment data is provided.  
 
 Below the graphs, there is a dynamic list of articles, presenting the latest news on the stock.  
+
+# Preview: 
+
+![ezgif-1-e2ed0f2969](https://github.com/Idawid/Stock-Price-Forecast-NLP/assets/80775030/2fe454d1-3bf2-4dc5-8b24-7eeaf5fffb9c)
+
+![image](https://github.com/Idawid/Stock-Price-Forecast-NLP/assets/80775030/a4345733-4208-4dc2-9b2a-a7f39d8e6d12)
+
+![image](https://github.com/Idawid/Stock-Price-Forecast-NLP/assets/80775030/ed32da64-06a2-48ea-b66e-d5365802fc2e)
+
+
 
